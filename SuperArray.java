@@ -22,29 +22,32 @@ public class SuperArray {
   }
 
   public boolean add(String word) {
+    if (data[size - 1] != null)
+      resize();
     data[size] = word;
+    size++;
     return true;
   }
 
   public String toString() {
     String a = "[";
-    for(int i = 0; i < size-2; i++) {
+    for(int i = 0; i < size-1; i++) {
       a += data[i] + ", ";
     }
-    return a + data[size-1] + "]";
+    return a + data[size] + "]";
   }
 
   public String toStringDebug() {
     String a = "[";
-    for(int i = 0; i < size-2; i++) {
+    for(int i = 0; i < size-1; i++) {
       if (data[i].equals("null")) {
         a += "null, ";
       }
       else a += data[i] + ", ";
     }
-    if (data[size-1].equals("null"))
+    if (data[size].equals("null"))
       return a + "null" + "]";
-    else return a + data[size-1] + "]";
+    else return a + data[size] + "]";
   }
 
   public String get(int index) {
@@ -64,6 +67,14 @@ public class SuperArray {
         data[index] = word;
       }
       return old;
+    }
+
+    private void resize() {
+      String[] copy = new String[size * 2];
+      for (int i = 0; i < size - 1; i++) {
+        copy[i] = data[i];
+      }
+      data = copy;
     }
 
 
