@@ -57,28 +57,23 @@ public class SuperArray {
   public String get(int index) {
     if (index < 0 || index >= size())
       return null;
-    else return data[index];
+    else return this.data[index];
   }
 
   public String set(int index, String word) {
-    String temp = "";
     String old = "";
     if (index < 0 || index >= size())
       return null;
-      else {
-        old = data[index];
-        temp = word;
-        data[index] = word;
-      }
+      else this.data[index] = word;
       return old;
     }
 
     private void resize() {
-      String[] copy = new String[size * 2];
+      String[] copy = new String[this.size * 2];
       for (int i = 0; i < size - 1; i++) {
-        copy[i] = data[i];
+        copy[i] = this.data[i];
       }
-      data = copy;
+      this.data = copy;
     }
 
 
