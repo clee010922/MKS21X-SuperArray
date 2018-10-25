@@ -24,7 +24,7 @@ public class SuperArray {
   public boolean add(String word) {
     if (data[size - 1] != null)
       resize();
-    data[size] = word;
+    data[size-1] = word;
     size++;
     return true;
   }
@@ -32,22 +32,27 @@ public class SuperArray {
   public String toString() {
     String a = "[";
     for(int i = 0; i < size-1; i++) {
-      a += data[i] + ", ";
+      if (data[i] == null)
+        a += "";
+      else a += data[i] + ", ";
     }
-    return a + data[size] + "]";
+    if (data[size] == null)
+      a += "]";
+    else a += data[size] + "]";
+    return a;
   }
 
   public String toStringDebug() {
     String a = "[";
-    for(int i = 0; i < size-1; i++) {
-      if (data[i].equals("null")) {
+    for(int i = 0; i <  data.length()-1; i++) {
+      if (data[i] == null)
         a += "null, ";
-      }
       else a += data[i] + ", ";
     }
-    if (data[size].equals("null"))
-      return a + "null" + "]";
-    else return a + data[size] + "]";
+    if (data.length() == null)
+      a += "null]";
+    else a+= data[size] + "]";
+    return a;
   }
 
   public String get(int index) {
