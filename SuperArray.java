@@ -76,5 +76,41 @@ public class SuperArray {
       this.data = copy;
     }
 
-
+    public boolean contains(String target) {
+      boolean a = true;
+      for (int i = 0; i < this.size - 1; i++) {
+        if (this.data[i].equals(target))
+          return true;
+    }
+    return false;
   }
+
+  public int indexOf(String target) {
+    int indx = -1;
+    for (int i = 0; i < this.size - 1; i++) {
+      if (this.data[i].equals(target))
+        indx = i;
+    }
+    return indx;
+  }
+
+  public int lastIndexOf(String target) {
+    int indx = -1;
+    for (int i = this.size - 1; i > 0; i--) {
+      if (this.data[i].equals(target))
+        indx = i;
+    }
+    return indx;
+  }
+
+  public void add(int index, String word) {
+    if (this.size == data.length)
+      resize();
+    for (int i = index; i < this.size - 1; i--) {
+      this.data[i + 1] = this.data[i];
+    }
+    this.data[index] = word;
+    size++;
+  }
+
+}
