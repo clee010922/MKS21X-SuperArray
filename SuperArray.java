@@ -32,25 +32,24 @@ public class SuperArray {
 
   public String toString() {
     String a = "[";
-    for(int i = 0; i < size; i++) {
-        a += this.data[i];
-        if (i != size - 1) {
+    for(int i = 0; i < this.size; i++) {
+      a += this.data[i];
+      if (i != size - 1)
         a += ", ";
-        }
-        }
-        return a += "]";
       }
+      return a += "]";
+    }
 
   public String toStringDebug() {
     String a = "[";
-    for(int i = 0; i < data.length - 1; i++) {
-      if (data[i] == null)
+    for(int i = 0; i < this.data.length - 1; i++) {
+      if (this.data[i] == null)
         a += "null, ";
-      else a += data[i] + ", ";
+      else a += this.data[i] + ", ";
     }
-    if (data[data.length-1] == null)
+    if (this.data[this.data.length-1] == null)
       a += "null]";
-    else a+= data[size] + "]";
+    else a+= this.data[this.data.length-1] + "]";
     return a;
   }
 
@@ -76,28 +75,27 @@ public class SuperArray {
       this.data = copy;
     }
 
-    public boolean contains(String target) {
-      boolean a = true;
-      for (int i = 0; i < this.size - 1; i++) {
-        if (this.data[i].equals(target))
+    public boolean contains(String word) {
+      for (int i = 0; i < this.size; i++) {
+        if (this.data[i].equals(word))
           return true;
-    }
-    return false;
-  }
+        }
+        return false;
+      }
 
-  public int indexOf(String target) {
+  public int indexOf(String word) {
     int indx = -1;
     for (int i = 0; i < this.size - 1; i++) {
-      if (this.data[i].equals(target))
+      if (this.data[i].equals(word))
         indx = i;
     }
     return indx;
   }
 
-  public int lastIndexOf(String target) {
+  public int lastIndexOf(String word) {
     int indx = -1;
     for (int i = this.size - 1; i > 0; i--) {
-      if (this.data[i].equals(target))
+      if (this.data[i].equals(word))
         indx = i;
     }
     return indx;
@@ -106,11 +104,31 @@ public class SuperArray {
   public void add(int index, String word) {
     if (this.size == data.length)
       resize();
-    for (int i = index; i < this.size - 1; i--) {
+    for (int i = index; i < this.size - 1; i++) {
       this.data[i + 1] = this.data[i];
     }
     this.data[index] = word;
     size++;
   }
+
+  public String remove(int index) {
+    String old = this.data[index];
+    if (index < 0 || index > size())
+      return null;
+    for (int i = index; i < this.size - 1; i++) {
+      this.data[i - 1] = this.data[i];
+    }
+    size--;
+    return old;
+  }
+
+  public boolean remove(String word) {
+    if (this.contains(word)) {
+      this.remove(this.indexOf(word));
+      return true;
+    }
+    return (this.contains(word));
+  }
+
 
 }
