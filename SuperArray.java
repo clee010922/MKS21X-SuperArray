@@ -10,6 +10,8 @@ public class SuperArray {
   }
 
   public SuperArray(int startingCapacity) {
+    if (startingCapacity < 0)
+      throw new IllegalArgumentException(startingCapacity + "is an invalid size");
     data = new String[startingCapacity];
     size = 0;
   }
@@ -57,16 +59,16 @@ public class SuperArray {
 
   public String get(int index) {
     if (index < 0 || index >= size())
-      return null;
+      throw new IndexOutOfBoundsException(index + "is an invalid index");
     else return this.data[index];
   }
 
   public String set(int index, String word) {
     String old = "";
     if (index < 0 || index >= size())
-      return null;
-      else this.data[index] = word;
-      return old;
+      throw new IndexOutOfBoundsException(index + "is an invalid index");
+    else this.data[index] = word;
+    return old;
     }
 
     private void resize() {
@@ -104,6 +106,8 @@ public class SuperArray {
   }
 
   public void add(int index, String word) {
+    if (index < 0 || index > size())
+      throw new IndexOutOfBoundsException(index + "is an invalid index");
     if (this.size == data.length)
       resize();
     for (int i = index; i < this.size - 1; i++) {
@@ -116,7 +120,7 @@ public class SuperArray {
   public String remove(int index) {
     String old = this.data[index];
     if (index < 0 || index > size())
-      return null;
+      throw new IndexOutOfBoundsException(index + "is an invalid index");
     for (int i = index; i < this.size; i++) {
       this.data[i] = this.data[i + 1];
       if (this.data[i + 1] == null)
