@@ -43,15 +43,12 @@ public class SuperArray {
   public String toStringDebug() {
     String a = "[";
     for(int i = 0; i < this.data.length - 1; i++) {
-      if (this.data[i] == null)
-        a += "null, ";
-      else a += this.data[i] + ", ";
+      a += this.data[i];
+      if (i != size - 1)
+        a += ", ";
+      }
+      return a += "]";
     }
-    if (this.data[this.data.length-1] == null)
-      a += "null]";
-    else a+= this.data[this.data.length-1] + "]";
-    return a;
-  }
 
   public String get(int index) {
     if (index < 0 || index >= size())
@@ -68,25 +65,25 @@ public class SuperArray {
     }
 
     private void resize() {
-      String[] copy = new String[this.size * 2];
-      for (int i = 0; i < size - 1; i++) {
+      String[] copy = new String[this.size * 2 + 1];
+      for (int i = 0; i < size; i++) {
         copy[i] = this.data[i];
       }
       this.data = copy;
     }
 
     public boolean contains(String word) {
-      for (int i = 0; i < this.size; i++) {
-        if (this.data[i].equals(word))
+      for (int i = 0; i < size; i++) {
+        if (data[i].equals(word))
           return true;
-        }
-        return false;
       }
+      return false;
+    }
 
   public int indexOf(String word) {
     int indx = -1;
-    for (int i = 0; i < this.size - 1; i++) {
-      if (this.data[i].equals(word))
+    for (int i = 0; i < data.length; i++) {
+      if (this.data[i] == word)
         indx = i;
     }
     return indx;
@@ -94,8 +91,8 @@ public class SuperArray {
 
   public int lastIndexOf(String word) {
     int indx = -1;
-    for (int i = this.size - 1; i > 0; i--) {
-      if (this.data[i].equals(word))
+    for (int i = data.length - 1; i >= 0; i--) {
+      if (this.data[i] == word)
         indx = i;
     }
     return indx;
@@ -115,9 +112,11 @@ public class SuperArray {
     String old = this.data[index];
     if (index < 0 || index > size())
       return null;
-    for (int i = index; i < this.size - 1; i++) {
-      this.data[i - 1] = this.data[i];
-    }
+    for (int i = index; i < this.size; i++) {
+      this.data[i] = this.data[i + 1];
+      if (this.data[i + 1] == null)
+        data[i] = null;
+      }
     size--;
     return old;
   }
