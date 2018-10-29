@@ -9,6 +9,11 @@ public class SuperArray {
     size = 0;
   }
 
+  public SuperArray(int startingCapacity) {
+    data = new String[startingCapacity];
+    size = 0;
+  }
+
   public void clear() {
     this.data = new String[(this.data).length];
     this.size = 0;
