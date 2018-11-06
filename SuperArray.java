@@ -88,21 +88,19 @@ public class SuperArray {
     }
 
   public int indexOf(String word) {
-    int indx = -1;
     for (int i = 0; i < data.length; i++) {
-      if (this.data[i] == word)
-        indx = i;
+      if (data[i] != null && data[i].equals(word))
+        return i;
     }
-    return indx;
+    return -1;
   }
 
   public int lastIndexOf(String word) {
-    int indx = -1;
-    for (int i = data.length - 1; i >= 0; i--) {
-      if (this.data[i] == word)
-        indx = i;
+    for (int i = size - 1; i > 0; i--) {
+      if (word.equals(data[i]))
+        return i;
     }
-    return indx;
+    return -1;
   }
 
   public void add(int index, String word) {
